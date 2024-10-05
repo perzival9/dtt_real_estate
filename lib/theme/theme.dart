@@ -19,47 +19,55 @@ class AppTheme {
     ),
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'GothamSSm',
-          color: AppColors.strong), // Title 01
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'GothamSSm',
+        color: AppColors.strong,
+      ), // Title 01
       headlineMedium: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'GothamSSm',
-          color: AppColors.strong), // Title 02
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'GothamSSm',
+        color: AppColors.strong,
+      ), // Title 02
       headlineSmall: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          fontFamily: 'GothamSSm',
-          color: AppColors.medium), // Title 03
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        fontFamily: 'GothamSSm',
+        color: AppColors.medium,
+      ), // Title 03
 
       bodyLarge: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.normal,
-          fontFamily: 'GothamSSm',
-          color: AppColors.medium), // Body
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+        fontFamily: 'GothamSSm',
+        color: AppColors.medium,
+      ), // Body
       bodyMedium: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w300,
-          fontFamily: 'GothamSSm',
-          color: AppColors.light), // Input
+        fontSize: 12,
+        fontWeight: FontWeight.w300,
+        fontFamily: 'GothamSSm',
+        color: AppColors.light,
+      ), // Input
       bodySmall: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.normal,
-          fontFamily: 'GothamSSm',
-          color: AppColors.medium), // Hint
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+        fontFamily: 'GothamSSm',
+        color: AppColors.medium,
+      ), // Hint
 
       titleSmall: TextStyle(
-          fontSize: 10,
-          fontWeight: FontWeight.normal,
-          fontFamily: 'GothamSSm',
-          color: AppColors.light), // Subtitle
+        fontSize: 10,
+        fontWeight: FontWeight.normal,
+        fontFamily: 'GothamSSm',
+        color: AppColors.light,
+      ), // Subtitle
       labelSmall: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.normal,
-          fontFamily: 'GothamSSm',
-          color: AppColors.medium), // Detail
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+        fontFamily: 'GothamSSm',
+        color: AppColors.medium,
+      ), // Detail
     ),
   );
 }
