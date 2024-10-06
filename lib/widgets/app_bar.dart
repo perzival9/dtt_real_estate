@@ -1,3 +1,4 @@
+import 'package:dtt_real_estate/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -10,6 +11,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: AppColors.lightGray,
       title: Align(
         alignment: Alignment.centerLeft,
         child: Text(
