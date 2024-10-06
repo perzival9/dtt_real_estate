@@ -1,47 +1,52 @@
 import 'package:dtt_real_estate/models/house_model.dart';
+import 'package:dtt_real_estate/providers/house_provider.dart';
 import 'package:dtt_real_estate/services/house_service.dart';
 import 'package:dtt_real_estate/theme/theme.dart';
 import 'package:dtt_real_estate/widgets/app_bar.dart';
 import 'package:dtt_real_estate/widgets/bottom_navigation_bar.dart';
 import 'package:dtt_real_estate/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OverviewScreen extends StatefulWidget {
+class OverviewScreen extends ConsumerWidget {
   const OverviewScreen({super.key});
 
   @override
-  State<OverviewScreen> createState() => _OverviewScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final houseState = ref.watch(houseProvider);
+    final houseNotifier = ref.read(houseProvider.notifier);
 
-class _OverviewScreenState extends State<OverviewScreen> {
-  @override
-  void initState() {
-    super.initState();
-    fetchHouseData();
-  }
-
-  Future<void> fetchHouseData() async {
-    HouseService houseService = HouseService();
-    try {
-      List<House> houses = await houseService.fetchHouses();
-      for (var house in houses) {
-        print(
-            'House ID: ${house.id}, Price: ${house.price}, City: ${house.city}, Bedrooms: ${house.bedrooms}');
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (houseState.houses.isEmpty && !houseState.isLoading) {
+        houseNotifier.fetchHouses();
       }
-    } catch (error) {
-      print(error);
-    }
-  }
+    });
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.lightGray,
       appBar: const CustomAppBar(title: 'DTT REAL ESTATE'),
-      body: const Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          CustomSearchBar(),
+          const CustomSearchBar(),
+          if (houseState.isLoading)
+            const Center(child: CircularProgressIndicator()),
+          if (houseState.errorMessage != null)
+            Center(child: Text('Error: ${houseState.errorMessage}')),
+          if (!houseState.isLoading && houseState.houses.isNotEmpty)
+            Expanded(
+              child: ListView.builder(
+                itemCount: houseState.houses.length,
+                itemBuilder: (context, index) {
+                  final house = houseState.houses[index];
+                  return ListTile(
+                    title: Text('${house.price}'),
+                    subtitle: Text(house.city),
+                    onTap: () {},
+                  );
+                },
+              ),
+            ),
         ],
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
