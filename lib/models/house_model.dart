@@ -28,9 +28,10 @@ class House {
   });
 
   factory House.fromJson(Map<String, dynamic> json) {
+    const String baseUrl = 'https://intern.d-tt.nl';
     return House(
       id: json['id'] as int,
-      image: json['image'] as String,
+      image: '$baseUrl${json['image']}',
       price: json['price'] as int,
       bedrooms: json['bedrooms'] as int,
       bathrooms: json['bathrooms'] as int,

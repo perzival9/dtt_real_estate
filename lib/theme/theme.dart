@@ -20,51 +20,51 @@ class AppTheme {
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
         fontSize: 18,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w700,
         fontFamily: 'GothamSSm',
         color: AppColors.strong,
       ), // Title 01
       headlineMedium: TextStyle(
         fontSize: 16,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w700,
         fontFamily: 'GothamSSm',
         color: AppColors.strong,
       ), // Title 02
       headlineSmall: TextStyle(
         fontSize: 16,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
         fontFamily: 'GothamSSm',
         color: AppColors.strong,
       ), // Title 03
 
       bodyLarge: TextStyle(
         fontSize: 12,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w300,
         fontFamily: 'GothamSSm',
-        color: AppColors.medium,
+        color: AppColors.strong,
       ), // Body
       bodyMedium: TextStyle(
         fontSize: 12,
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w200,
         fontFamily: 'GothamSSm',
         color: AppColors.light,
       ), // Input
       bodySmall: TextStyle(
         fontSize: 12,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w300,
         fontFamily: 'GothamSSm',
         color: AppColors.medium,
       ), // Hint
 
       titleSmall: TextStyle(
         fontSize: 10,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w300,
         fontFamily: 'GothamSSm',
-        color: AppColors.light,
+        color: AppColors.strong,
       ), // Subtitle
       labelSmall: TextStyle(
         fontSize: 12,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.w300,
         fontFamily: 'GothamSSm',
         color: AppColors.medium,
       ), // Detail

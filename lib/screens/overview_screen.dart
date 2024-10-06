@@ -4,6 +4,7 @@ import 'package:dtt_real_estate/services/house_service.dart';
 import 'package:dtt_real_estate/theme/theme.dart';
 import 'package:dtt_real_estate/widgets/app_bar.dart';
 import 'package:dtt_real_estate/widgets/bottom_navigation_bar.dart';
+import 'package:dtt_real_estate/widgets/house_tile.dart';
 import 'package:dtt_real_estate/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,11 +40,7 @@ class OverviewScreen extends ConsumerWidget {
                 itemCount: houseState.houses.length,
                 itemBuilder: (context, index) {
                   final house = houseState.houses[index];
-                  return ListTile(
-                    title: Text('${house.price}'),
-                    subtitle: Text(house.city),
-                    onTap: () {},
-                  );
+                  return HouseTile(house: house);
                 },
               ),
             ),
