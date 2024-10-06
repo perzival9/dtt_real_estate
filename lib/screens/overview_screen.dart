@@ -1,3 +1,5 @@
+import 'package:dtt_real_estate/models/house_model.dart';
+import 'package:dtt_real_estate/services/house_service.dart';
 import 'package:dtt_real_estate/theme/theme.dart';
 import 'package:dtt_real_estate/widgets/app_bar.dart';
 import 'package:dtt_real_estate/widgets/bottom_navigation_bar.dart';
@@ -12,6 +14,25 @@ class OverviewScreen extends StatefulWidget {
 }
 
 class _OverviewScreenState extends State<OverviewScreen> {
+  @override
+  void initState() {
+    super.initState();
+    fetchHouseData();
+  }
+
+  Future<void> fetchHouseData() async {
+    HouseService houseService = HouseService();
+    try {
+      List<House> houses = await houseService.fetchHouses();
+      for (var house in houses) {
+        print(
+            'House ID: ${house.id}, Price: ${house.price}, City: ${house.city}, Bedrooms: ${house.bedrooms}');
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
