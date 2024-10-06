@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+  flutter_svg: ^2.0.10+1
 
 
 dev_dependencies:
@@ -26,6 +27,7 @@ flutter:
     - assets/images/dtt_banner/
     - assets/images/launcher_icon.png
     - assets/images/search_state_empty.png
+    - assets/icons/
   fonts:
     - family: GothamSSm
       fonts:
