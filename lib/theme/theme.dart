@@ -34,7 +34,7 @@ class AppTheme {
         fontSize: 16,
         fontWeight: FontWeight.w500,
         fontFamily: 'GothamSSm',
-        color: AppColors.medium,
+        color: AppColors.strong,
       ), // Title 03
 
       bodyLarge: TextStyle(
