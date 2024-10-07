@@ -1,6 +1,4 @@
-import 'package:dtt_real_estate/models/house_model.dart';
 import 'package:dtt_real_estate/providers/house_provider.dart';
-import 'package:dtt_real_estate/services/house_service.dart';
 import 'package:dtt_real_estate/theme/theme.dart';
 import 'package:dtt_real_estate/widgets/app_bar.dart';
 import 'package:dtt_real_estate/widgets/bottom_navigation_bar.dart';
@@ -34,12 +32,30 @@ class OverviewScreen extends ConsumerWidget {
             const Center(child: CircularProgressIndicator()),
           if (houseState.errorMessage != null)
             Center(child: Text('Error: ${houseState.errorMessage}')),
-          if (!houseState.isLoading && houseState.houses.isNotEmpty)
+          if (!houseState.isLoading && houseState.filteredHouses.isEmpty)
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/search_state_empty.png',
+                    height: 200,
+                  ),
+                  const SizedBox(height: 28),
+                  Text(
+                    'No results found!\nPerhaps try another search?',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
+            ),
+          if (!houseState.isLoading && houseState.filteredHouses.isNotEmpty)
             Expanded(
               child: ListView.builder(
-                itemCount: houseState.houses.length,
+                itemCount: houseState.filteredHouses.length,
                 itemBuilder: (context, index) {
-                  final house = houseState.houses[index];
+                  final house = houseState.filteredHouses[index];
                   return HouseTile(house: house);
                 },
               ),

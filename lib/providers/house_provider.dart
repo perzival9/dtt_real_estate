@@ -5,11 +5,13 @@ import '../services/house_service.dart';
 class HouseState {
   final bool isLoading;
   final List<House> houses;
+  final List<House> filteredHouses;
   final String? errorMessage;
 
   HouseState({
     required this.isLoading,
     required this.houses,
+    required this.filteredHouses,
     required this.errorMessage,
   });
 
@@ -17,7 +19,22 @@ class HouseState {
     return HouseState(
       isLoading: false,
       houses: [],
+      filteredHouses: [],
       errorMessage: null,
+    );
+  }
+
+  HouseState copyWith({
+    bool? isLoading,
+    List<House>? houses,
+    List<House>? filteredHouses,
+    String? errorMessage,
+  }) {
+    return HouseState(
+      isLoading: isLoading ?? this.isLoading,
+      houses: houses ?? this.houses,
+      filteredHouses: filteredHouses ?? this.filteredHouses,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }
@@ -27,23 +44,35 @@ class HouseNotifier extends StateNotifier<HouseState> {
 
   Future<void> fetchHouses() async {
     try {
-      state = HouseState(
+      state = state.copyWith(
         isLoading: true,
-        houses: [],
         errorMessage: null,
       );
       List<House> houses = await HouseService().fetchHouses();
-      state = HouseState(
+      state = state.copyWith(
         isLoading: false,
         houses: houses,
-        errorMessage: null,
+        filteredHouses: houses,
       );
     } catch (error) {
-      state = HouseState(
+      state = state.copyWith(
         isLoading: false,
-        houses: [],
         errorMessage: error.toString(),
       );
+    }
+  }
+
+  void searchHouses(String query) {
+    if (query.isEmpty) {
+      state = state.copyWith(filteredHouses: state.houses);
+    } else {
+      List<House> filteredList = state.houses.where((house) {
+        return house.city.toLowerCase().contains(query.toLowerCase()) ||
+            house.zip.toLowerCase().contains(query.toLowerCase()) ||
+            house.price.toString().contains(query) ||
+            house.description.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+      state = state.copyWith(filteredHouses: filteredList);
     }
   }
 }
