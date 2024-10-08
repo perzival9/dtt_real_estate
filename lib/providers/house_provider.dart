@@ -6,12 +6,14 @@ class HouseState {
   final bool isLoading;
   final List<House> houses;
   final List<House> filteredHouses;
+  final List<House> likedHouses;
   final String? errorMessage;
 
   HouseState({
     required this.isLoading,
     required this.houses,
     required this.filteredHouses,
+    required this.likedHouses,
     required this.errorMessage,
   });
 
@@ -20,6 +22,7 @@ class HouseState {
       isLoading: false,
       houses: [],
       filteredHouses: [],
+      likedHouses: [],
       errorMessage: null,
     );
   }
@@ -28,12 +31,14 @@ class HouseState {
     bool? isLoading,
     List<House>? houses,
     List<House>? filteredHouses,
+    List<House>? likedHouses,
     String? errorMessage,
   }) {
     return HouseState(
       isLoading: isLoading ?? this.isLoading,
       houses: houses ?? this.houses,
       filteredHouses: filteredHouses ?? this.filteredHouses,
+      likedHouses: likedHouses ?? this.likedHouses,
       errorMessage: errorMessage ?? this.errorMessage,
     );
   }
@@ -74,6 +79,16 @@ class HouseNotifier extends StateNotifier<HouseState> {
       }).toList();
       state = state.copyWith(filteredHouses: filteredList);
     }
+  }
+
+  void toggleLike(House house) {
+    List<House> updatedLikedHouses = List.from(state.likedHouses);
+    if (updatedLikedHouses.contains(house)) {
+      updatedLikedHouses.remove(house);
+    } else {
+      updatedLikedHouses.add(house);
+    }
+    state = state.copyWith(likedHouses: updatedLikedHouses);
   }
 }
 
