@@ -68,6 +68,9 @@ class OverviewScreen extends ConsumerWidget {
           if (index == 1) {
             Navigator.pushReplacementNamed(context, '/about');
           }
+          if (index == 2) {
+            Navigator.pushReplacementNamed(context, '/wishlist');
+          }
         },
       ),
     );

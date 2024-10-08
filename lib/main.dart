@@ -1,5 +1,6 @@
 import 'package:dtt_real_estate/screens/about_screen.dart';
 import 'package:dtt_real_estate/screens/overview_screen.dart';
+import 'package:dtt_real_estate/screens/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'screens/splash_screen.dart';
 import 'theme/theme.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/splash': (context) => const SplashScreen(),
         '/overview': (context) => const OverviewScreen(),
         '/about': (context) => const AboutScreen(),
+        '/wishlist': (context) => const WishlistScreen(),
       },
     );
   }

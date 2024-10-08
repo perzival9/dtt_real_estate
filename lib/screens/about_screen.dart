@@ -58,12 +58,16 @@ class AboutScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
-          currentIndex: 1,
-          onTap: (int index) {
-            if (index == 0) {
-              Navigator.pushReplacementNamed(context, '/overview');
-            }
-          }),
+        currentIndex: 1,
+        onTap: (int index) {
+          if (index == 0) {
+            Navigator.pushReplacementNamed(context, '/overview');
+          }
+          if (index == 2) {
+            Navigator.pushReplacementNamed(context, '/wishlist');
+          }
+        },
+      ),
     );
   }
 }
