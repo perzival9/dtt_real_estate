@@ -1,7 +1,7 @@
 import 'package:dtt_real_estate/constants/text_constants.dart';
 import 'package:dtt_real_estate/models/house_model.dart';
 import 'package:dtt_real_estate/theme/theme.dart';
-import 'package:dtt_real_estate/widgets/house_tile.dart';
+import 'package:dtt_real_estate/widgets/detail_icon_.dart';
 import 'package:dtt_real_estate/widgets/location_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

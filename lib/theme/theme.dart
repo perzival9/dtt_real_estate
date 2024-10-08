@@ -14,7 +14,7 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     primaryColor: AppColors.red,
     colorScheme: const ColorScheme.light(
-      primary: AppColors.red,
+      primary: AppColors.lightGray,
       surface: AppColors.white,
     ),
     textTheme: const TextTheme(

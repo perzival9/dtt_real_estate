@@ -1,6 +1,7 @@
 import 'package:dtt_real_estate/providers/house_provider.dart';
 import 'package:dtt_real_estate/screens/house_detail_screen.dart';
 import 'package:dtt_real_estate/theme/theme.dart';
+import 'package:dtt_real_estate/widgets/detail_icon_.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -66,6 +67,7 @@ class HouseTile extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               '\$${house.price}',
@@ -73,7 +75,7 @@ class HouseTile extends ConsumerWidget {
                             ),
                             Text(
                               house.city,
-                              style: Theme.of(context).textTheme.bodyLarge,
+                              style: Theme.of(context).textTheme.titleSmall,
                             ),
                           ],
                         ),
@@ -127,26 +129,4 @@ class HouseTile extends ConsumerWidget {
       ),
     );
   }
-}
-
-Widget detailIcon(BuildContext context, String assetPath, String value) {
-  return Row(
-    children: [
-      SvgPicture.asset(
-        assetPath,
-        width: 12,
-        height: 16,
-        colorFilter: const ColorFilter.mode(
-          AppColors.medium,
-          BlendMode.srcIn,
-        ),
-      ),
-      const SizedBox(width: 4),
-      Text(
-        value,
-        style: Theme.of(context).textTheme.titleSmall,
-      ),
-      const SizedBox(width: 16.0),
-    ],
-  );
 }
