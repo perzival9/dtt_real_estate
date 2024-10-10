@@ -4,7 +4,6 @@ import 'package:dtt_real_estate/widgets/detail_icon_.dart';
 import 'package:dtt_real_estate/widgets/location_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 
 class HouseDetailScreen extends ConsumerWidget {
   final House house;
@@ -26,24 +25,6 @@ class HouseDetailScreen extends ConsumerWidget {
             height: 400,
             width: double.infinity,
             fit: BoxFit.cover,
-          ),
-          Positioned(
-            top: 40,
-            left: 4,
-            child: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: SvgPicture.asset(
-                'assets/icons/ic_back.svg',
-                width: 24,
-                height: 24,
-                colorFilter: const ColorFilter.mode(
-                  AppColors.white,
-                  BlendMode.srcIn,
-                ),
-              ),
-            ),
           ),
           SingleChildScrollView(
             padding: const EdgeInsets.only(top: 220),
