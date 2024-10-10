@@ -1,18 +1,22 @@
-import 'package:dtt_real_estate/constants/text_constants.dart';
 import 'package:dtt_real_estate/models/house_model.dart';
 import 'package:dtt_real_estate/theme/theme.dart';
 import 'package:dtt_real_estate/widgets/detail_icon_.dart';
 import 'package:dtt_real_estate/widgets/location_map.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-class HouseDetailScreen extends StatelessWidget {
+class HouseDetailScreen extends ConsumerWidget {
   final House house;
 
   const HouseDetailScreen({super.key, required this.house});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final distanceText = house.distanceFromUser != null
+        ? '${house.distanceFromUser!.toStringAsFixed(0)} km'
+        : '...';
+
     return Scaffold(
       backgroundColor: AppColors.lightGray,
       body: Stack(
@@ -73,9 +77,10 @@ class HouseDetailScreen extends StatelessWidget {
                               detailIcon(context, 'assets/icons/ic_layers.svg',
                                   '${house.size}'),
                               detailIcon(
-                                  context,
-                                  'assets/icons/ic_location.svg',
-                                  '${house.latitude} km'),
+                                context,
+                                'assets/icons/ic_location.svg',
+                                distanceText,
+                              ),
                             ],
                           ),
                         ],
@@ -87,7 +92,7 @@ class HouseDetailScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        TextConstants.houseDescription,
+                        house.description,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(height: 28),

@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/house_model.dart';
 import '../services/house_service.dart';
+import '../services/location_service.dart';
+import 'package:geolocator/geolocator.dart';
 
 class HouseState {
   final bool isLoading;
@@ -8,6 +10,8 @@ class HouseState {
   final List<House> filteredHouses;
   final List<House> likedHouses;
   final String? errorMessage;
+  final bool locationPermissionGranted;
+  final Position? userLocation;
 
   HouseState({
     required this.isLoading,
@@ -15,6 +19,8 @@ class HouseState {
     required this.filteredHouses,
     required this.likedHouses,
     required this.errorMessage,
+    required this.locationPermissionGranted,
+    required this.userLocation,
   });
 
   factory HouseState.initial() {
@@ -24,6 +30,8 @@ class HouseState {
       filteredHouses: [],
       likedHouses: [],
       errorMessage: null,
+      locationPermissionGranted: false,
+      userLocation: null,
     );
   }
 
@@ -33,6 +41,8 @@ class HouseState {
     List<House>? filteredHouses,
     List<House>? likedHouses,
     String? errorMessage,
+    bool? locationPermissionGranted,
+    Position? userLocation,
   }) {
     return HouseState(
       isLoading: isLoading ?? this.isLoading,
@@ -40,24 +50,39 @@ class HouseState {
       filteredHouses: filteredHouses ?? this.filteredHouses,
       likedHouses: likedHouses ?? this.likedHouses,
       errorMessage: errorMessage ?? this.errorMessage,
+      locationPermissionGranted:
+          locationPermissionGranted ?? this.locationPermissionGranted,
+      userLocation: userLocation ?? this.userLocation,
     );
   }
 }
 
 class HouseNotifier extends StateNotifier<HouseState> {
-  HouseNotifier() : super(HouseState.initial());
+  final HouseService _houseService;
+  final LocationService _locationService;
+
+  HouseNotifier(this._houseService, this._locationService)
+      : super(HouseState.initial());
 
   Future<void> fetchHouses() async {
     try {
-      state = state.copyWith(
-        isLoading: true,
-        errorMessage: null,
-      );
-      List<House> houses = await HouseService().fetchHouses();
+      state = state.copyWith(isLoading: true, errorMessage: null);
+
+      final housesFuture = _houseService.fetchHouses();
+      final userLocationFuture = _locationService.getUserLocation();
+      final houses = await housesFuture;
+      final userLocation = await userLocationFuture;
+
+      if (userLocation != null) {
+        _locationService.calculateDistanceForHouseList(userLocation, houses);
+      }
+
       state = state.copyWith(
         isLoading: false,
         houses: houses,
         filteredHouses: houses,
+        locationPermissionGranted: userLocation != null,
+        userLocation: userLocation,
       );
     } catch (error) {
       state = state.copyWith(
@@ -92,6 +117,11 @@ class HouseNotifier extends StateNotifier<HouseState> {
   }
 }
 
-final houseProvider = StateNotifierProvider<HouseNotifier, HouseState>((ref) {
-  return HouseNotifier();
-});
+final houseProvider = StateNotifierProvider<HouseNotifier, HouseState>(
+  (ref) {
+    return HouseNotifier(
+      ref.watch(houseServiceProvider),
+      ref.watch(locationServiceProvider),
+    );
+  },
+);

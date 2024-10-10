@@ -20,6 +20,10 @@ class HouseTile extends ConsumerWidget {
     final isLiked = ref.watch(
         houseProvider.select((state) => state.likedHouses.contains(house)));
 
+    final distanceText = house.distanceFromUser != null
+        ? '${house.distanceFromUser!.toStringAsFixed(0)} km'
+        : '...';
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: GestureDetector(
@@ -116,7 +120,7 @@ class HouseTile extends ConsumerWidget {
                         detailIcon(
                           context,
                           'assets/icons/ic_location.svg',
-                          '${house.latitude} km',
+                          distanceText,
                         ),
                       ],
                     ),

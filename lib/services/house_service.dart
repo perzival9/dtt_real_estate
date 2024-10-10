@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/house_model.dart';
@@ -15,10 +16,9 @@ class HouseService {
 
       if (response.statusCode == 200) {
         List<dynamic> jsonData = jsonDecode(response.body);
-        List<House> houses = jsonData.map((houseJson) {
-          return House.fromJson(houseJson);
-        }).toList();
-
+        List<House> houses =
+            jsonData.map((houseJson) => House.fromJson(houseJson)).toList();
+        houses.sort((a, b) => a.price.compareTo(b.price));
         return houses;
       } else {
         throw Exception('Failed to load houses');
@@ -28,3 +28,5 @@ class HouseService {
     }
   }
 }
+
+final houseServiceProvider = Provider((ref) => HouseService());
